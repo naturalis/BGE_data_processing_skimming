@@ -26,5 +26,5 @@ diff checksums.sorted.md5 checksums.local.sorted.md5</code></pre>
 If the checksums are identical only four files (.html .zip .md and .csv) will show.
 
 ## Sample range
-To split the data per plate (which facilitates traceability and uploading/retrieving data from S3 storage) the Ready-made-libraries_SampleForm used for submitting data to the sequence centre is required.
-<pre><code>BGE_range_extract.sh</code></pre>
+To split the data per plate (which facilitates traceability and uploading/retrieving data from S3 storage), download the [SampleForm](data/YB-4209_SampleForm.csv) (Ready-made-libraries), for submitting the plates to the sequence centre, as *.csv from [Google Drive](https://drive.google.com/drive/folders/1lxCPhEpvqq0meHPkXx-FaAgUgPk03dtY?usp=drive_link).
+<pre><code>./scripts/BGE_range_extract.sh data/YB-4209_SampleForm.csv</code></pre>
