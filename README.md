@@ -28,3 +28,5 @@ If the checksums are identical only four files (.html .zip .md and .csv) will sh
 ## Sample range
 To split the data per plate (which facilitates traceability and uploading/retrieving data from S3 storage), download the [SampleForm](data/YB-4209_SampleForm.csv) (Ready-made-libraries), for submitting the plates to the sequence centre, as *.csv from [Google Drive](https://drive.google.com/drive/folders/1lxCPhEpvqq0meHPkXx-FaAgUgPk03dtY?usp=drive_link).
 <pre><code>./scripts/BGE_range_extract.sh data/YB-4209_SampleForm.csv</code></pre>
+For the example data the output will look like this:
+![For the example data the output will look like this:](images/range_extract_output.png)
