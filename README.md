@@ -25,7 +25,7 @@ If the checksums are identical only four files (.html .zip .md and .csv) will sh
 ## Sample range
 To split the data per plate (which facilitates traceability and uploading/retrieving data from S3 storage), download the [SampleForm](data/YB-4209_SampleForm.csv) (Ready-made-libraries), for submitting the plates to the sequence centre, as *.csv from [Google Drive](https://drive.google.com/drive/folders/1lxCPhEpvqq0meHPkXx-FaAgUgPk03dtY?usp=drive_link).
 <pre><code>./scripts/BGE_range_extract.sh data/YB-4209_SampleForm.csv</code></pre>
-The image below left shows the output for this example. Discrepancies in naming convention are not uncommon (e.g. plate 501) and the conversion of process IDs to brace extendable expressions may require some attention (e.g. plate 501,502). Therefore it may be best to create these expressions for run2split.sh manually (image below right). As a side note: plates never seem to be given in sorted order (keeping the provided order can aid troubleshooting, e.g. plate-swap detection). 
+The image below left shows the output for this example. Discrepancies in naming convention are not uncommon (e.g. plate 501) and the conversion of process IDs to brace extendable expressions may require some attention (e.g. plate 501,502). Therefore it may be best to create these expressions for [run2split.sh](scripts/run2split.sh) manually (image below right). As a side note: plates never seem to be given in sorted order (keeping the provided order can aid troubleshooting, e.g. plate-swap detection). 
 |  <img src="images/range_extract_output.png" width="400"> |  <img src="images/run2split_input.png" width="600"> |
 |--------------------------------|--------------------------------|
 
