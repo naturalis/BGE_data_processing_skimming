@@ -46,7 +46,7 @@ The latter five output blocks write commands to stdout (either remove "echo" or 
 ## Backup to NDOR S3
 To store data on [Naturalis Digital Object Repository (NDOR)](https://console.ndor.naturalis.io/), the Minio S3 client and [rclone](https://docs.google.com/document/d/1Khsvrmg8hW6EfW8MWnXIXLseChUqcx--Ro9hByhGjVc/edit?tab=t.0#heading=h.6bla1bvhmnq3) need to be installed on the MaaS-node where the data is located.
 <pre><code>  # check the total size of the data to be copied
-du -hcs $(ls | egrep "^BGE00(100|101|102|103|181|196|301|302|303|315|413|415|416|588|589|590)$") | egrep "total"
+du -hcs $(ls | egrep "^BGE00(417|418|431|501|414|300|193|432|194|316|320|502|105|104|188|191)$") | egrep "total"
   # check availability and contents of destination location
 mc ls minio3/dickgroenenberg/skimming/input
   # start a screen session
