@@ -25,9 +25,15 @@ If the checksums are identical only four files (.html .zip .md and .csv) will sh
 ## Sample range
 Download the [SampleForm](data/YB-4209_SampleForm.csv) (Ready-made-libraries), for submitting the plates to the sequence centre, as *.csv from [Google Drive](https://drive.google.com/drive/folders/1lxCPhEpvqq0meHPkXx-FaAgUgPk03dtY?usp=drive_link). Use [BGE_range_extract.sh](scripts/BGE_range_extract.sh) to split the data per plate (which facilitates traceability and uploading/retrieving data from S3 storage).
 <pre><code>./scripts/BGE_range_extract.sh data/YB-4209_SampleForm.csv</code></pre>
-The image below left shows the output for this example. Discrepancies in naming convention are not uncommon (e.g. plate 501) and the conversion of process IDs to brace extendable expressions may require some attention (e.g. plate 501,502). Therefore it may be best to create these expressions for [run2split.sh](scripts/run2split.sh) manually (image below right). As a side note: plates never seem to be given in sorted order (keeping the provided order can aid troubleshooting, e.g. plate-swap detection). 
+The image below left shows the output for this example. Discrepancies in naming convention are not uncommon (e.g. plate 501) and the conversion of process IDs to brace expansion expressions may require some attention (e.g. plate 501, 502). Therefore it may be best to create these expressions for [run2split.sh](scripts/run2split.sh) manually (image below right). As a side note: plates never seem to be given in sorted order (keeping the provided order can aid troubleshooting, e.g. plate-swap detection). 
 |  <img src="images/range_extract_output.png" width="400"> |  <img src="images/run2split_input.png" width="600"> |
 |--------------------------------|--------------------------------|
 
 ## Run2split.sh
+Modify [run2split.sh](scripts/run2split.sh) by replacing the "add entry" section with the obtained brace expansion expressions and run it on the same directory where the checksums(## MD5 Checksums) were calculated.
+<pre><code>./run2split.sh</code></pre>
+Six output blocks will be written to sdout. The first block (image below) shows the number of samples and file size per plate.
+
+the latter five contain commands that can be executed.
+
 ## Backup to NDOR S3
