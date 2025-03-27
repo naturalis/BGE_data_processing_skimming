@@ -16,24 +16,6 @@ add_entry() {
 }
 
 # Add entries in desired order
-# add_entry "BGE00100" "BBIOP{1901..1995}-24"
-# add_entry "BGE00101" "BBIOP{1996..2090}-24"
-# add_entry "BGE00102" "BBIOP{2186..2280}-24"
-# add_entry "BGE00103" "BBIOP{2091..2185}-24"
-# add_entry "BGE00181" "BGENL{1711..1805}-24"
-# add_entry "BGE00196" "BGENL{2661..2755}-24"
-# add_entry "BGE00301" "BGSNL{951..1045}-24"
-# add_entry "BGE00302" "BGSNL{1046..1140}-24"
-# add_entry "BGE00303" "BGSNL{1141..1235}-24"
-# add_entry "BGE00315" "BGSNL{2091..2185}-24"
-# add_entry "BGE00413" "BGLIB{1046..1140}-24"
-# add_entry "BGE00415" "BGLIB{1236..1330}-24"
-# add_entry "BGE00416" "BGLIB{1426..1520}-24"
-# add_entry "BGE00588" "BBIOP{1806..1900}-24"
-# add_entry "BGE00589" "BBIOP{1711..1805}-24"
-# add_entry "BGE00590" "BBIOP{1616..1710}-24"
-
-# Add entries in desired order
 add_entry "BGE00417"	"BGLIB{1521..1615}-24"
 add_entry "BGE00418"	"BGLIB{1616..1710}-24"
 add_entry "BGE00431"	"UNIFI{951..1045}-24"
