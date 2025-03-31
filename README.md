@@ -1,6 +1,6 @@
 # BGE genome skimming data processing
 This document describes the preparation steps for analysing genome skims for [BGE](https://biodiversitygenomics.eu/).
-Up to 16 plates (95 samples + 1 negative control per plate) are sent in a batch (4 index pools) to [SciLifeLab NGI](https://ngisweden.scilifelab.se/).
+Up to 16 plates (95 samples + 1 negative control per plate) can be sent in a batch (4 index pools) to [SciLifeLab NGI](https://ngisweden.scilifelab.se/).
 After sequencing, these data need to be downloaded, checksummed, and split per plate before analyses commence.
 
 ## DDS data download
