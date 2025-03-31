@@ -36,7 +36,7 @@ Six output blocks will be written to sdout. The first block (image below left) s
 |  <img src="images/run2split_output1.png" width="670"> |
 |--------------------------------|
 
-The latter five output blocks write commands to stdout (either remove "echo" or copy to execute). These commands will:  
+The latter five output blocks write commands to stdout (allowing for a final check). Copy the output and execute. These commands will:  
 2. Create BGE plate directories.  
 3. Select and move sequence data to the correct plate directories.  
 4. Move the negative controls to the correct plate directories.  
