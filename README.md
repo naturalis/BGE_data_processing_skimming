@@ -30,7 +30,7 @@ The image below left shows the output for this example. Discrepancies in naming 
 |--------------------------------|--------------------------------|
 
 ## Run2split.sh
-Modify [run2split.sh](scripts/run2split.sh) by replacing the "add entry" section with the obtained brace expansion expressions and run it on the same directory where the checksums(## MD5 Checksums) were calculated.
+Modify [run2split.sh](scripts/run2split.sh) by replacing the "add entry" section with the obtained brace expansion expressions (image above right) and run it on the same directory where the checksums(## MD5 Checksums) were calculated.
 <pre><code>./run2split.sh</code></pre>
 Six output blocks will be written to sdout. The first block (image below left) shows the number of samples and file size per plate. Each plate should have 95 samples and a negative control and the total file size per plate is generally between ~50 and ~100 Gb. In this example one sequence pool (the last four plates) had higher adapter peaks and was therefore excluded from this run.
 |  <img src="images/run2split_output1.png" width="670"> |
