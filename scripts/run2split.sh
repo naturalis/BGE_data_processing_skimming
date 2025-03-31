@@ -19,7 +19,7 @@ add_entry() {
 add_entry "BGE00417"	"BGLIB{1521..1615}-24"
 add_entry "BGE00418"	"BGLIB{1616..1710}-24"
 add_entry "BGE00431"	"UNIFI{951..1045}-24"
-add_entry "BGE00501"	"BSCRO00{1..10}24 BSCRO0{11..95}-24"
+add_entry "BGE00501"	"BSCRO00{1..9}-24 BSCRO0{10..95}-24"
 add_entry "BGE00414"	"BGLIB{1331..1425}-24"
 add_entry "BGE00300"	"BGSNL{856..950}-24"
 add_entry "BGE00193"	"BGENL{2471..2565}-24"
@@ -34,11 +34,9 @@ add_entry "BGE00188"	"BGENL{2851..2945}-24"
 add_entry "BGE00191"	"BGENL{2281..2375}-24"
 
 
-# First output the original count and size information
-echo "# Original count and size information"
-echo "# BGE_plate	Sample_range	Sample_count	Total_size"
-echo "# ----------------------------------------"
-
+# Print table showing sample count and size totals per plate
+printf "%-12s %-38s %-14s %-10s\n" "BGE_plate" "Sample_range" "Sample_count" "Total_size"
+printf "%-12s %-38s %-14s %-10s\n" "----------" "----------" "------------" "----------"
 # Loop over the ordered keys for count and size
 for key in "${ordered_keys[@]}"; do
     range="${my_dict[$key]}"
@@ -59,8 +57,8 @@ for key in "${ordered_keys[@]}"; do
         total_size=${total_size:-0}
     fi
     
-    # Print the result with proper tab spacing
-    printf "%s\t%s\t%s\t%s\n" "$key" "$range" "$count" "$total_size"
+    # Print the result with proper column alignment
+    printf "%-12s %-38s %-14s %-10s\n" "$key" "$range" "$count" "$total_size"
 done
 
 echo ""
@@ -81,7 +79,7 @@ echo "# ----------------------------------------"
 # Loop over the ordered keys for mv commands
 for key in "${ordered_keys[@]}"; do
     range="${my_dict[$key]}"
-    echo "mv \$(ls -1 | egrep \$(echo $range | tr \" \" \"|\")) $key"
+    echo "mv \$(ls | egrep \$(echo $range | tr \" \" \"|\") | tr \"\n\" \" \") $key"
 done
 
 echo ""
