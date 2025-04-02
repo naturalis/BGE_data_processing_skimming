@@ -36,14 +36,13 @@ Six output blocks will be written to sdout. The first block (image below left) s
 |  <img src="images/run2split_output1.png" width="670"> |
 |--------------------------------|
 
-The latter five output blocks write commands to stdout (allowing for a final check). Copy the output and execute. These commands will:  
+The latter five output blocks write commands to stdout (allowing for a final check). Copy [the output](data/output_example.sh) and execute. These commands will:  
 2. Create BGE plate directories.  
 3. Select and move sequence data to the correct plate directories (see image below).  
 4. Move the negative controls to the correct plate directories.  
 5. Copy the checksums to each plate directory.  
 6. Move the plate directories to the desired output location.
-|  <img src="images/run2split_output3.png" width="835"> |
-|--------------------------------|
+
 
 ## Backup to NDOR S3
 To store data on [Naturalis Digital Object Repository (NDOR)](https://console.ndor.naturalis.io/), the Minio S3 client and [rclone](https://docs.google.com/document/d/1Khsvrmg8hW6EfW8MWnXIXLseChUqcx--Ro9hByhGjVc/edit?tab=t.0#heading=h.6bla1bvhmnq3) need to be installed on the MaaS-node where the data is located.
