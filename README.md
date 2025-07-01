@@ -38,7 +38,7 @@ Six output blocks will be written to sdout. The first block (image below left) s
 
 The latter five output blocks write commands to stdout (allowing for a final check). Copy [the output](data/output_example.sh) and execute. These commands will:  
 2. Create BGE plate directories.  
-3. Select and move sequence data to the correct plate directories (see image below).  
+3. Select and move sequence data to the correct plate directories.  
 4. Move the negative controls to the correct plate directories.  
 5. Copy the checksums to each plate directory.  
 6. Move the plate directories to the desired output location.
