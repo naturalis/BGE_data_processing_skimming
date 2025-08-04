@@ -43,8 +43,11 @@ The latter five output blocks write commands to stdout (allowing for a final che
 5. Copy the checksums to each plate directory.  
 6. Move the plate directories to the desired output location.
 
-
 ## Backup to NDOR S3
+_Note: 
+As of 2025-07-31 skimming data for BGE is stored on AWS S3 instead of NDOR S3.  
+Instructions for AWS S3 still need to be added._  
+
 To store data on [Naturalis Digital Object Repository (NDOR)](https://console.ndor.naturalis.io/), the Minio S3 client and [rclone](https://docs.google.com/document/d/1Khsvrmg8hW6EfW8MWnXIXLseChUqcx--Ro9hByhGjVc/edit?tab=t.0#heading=h.6bla1bvhmnq3) need to be installed on the MaaS-node where the data is located.
 <pre><code>  # check the total size of the data to be copied
 du -hcs $(ls | egrep "^BGE00(417|418|431|501|414|300|193|432|194|316|320|502|105|104|188|191)$") | egrep "total"
@@ -52,9 +55,15 @@ du -hcs $(ls | egrep "^BGE00(417|418|431|501|414|300|193|432|194|316|320|502|105
 mc ls minio3/dickgroenenberg/skimming/input
   # start a screen session
 screen -DR backup -L 
-  # copy the data
+  # copy the data (use rclone, not mc cp !!) 
 time (
   for dir in BGE00{417,418,431,501,414,300,193,432,194,316,320,502,105,104,188,191}; do
     rclone copy -v -P "$dir" "minio3:/dickgroenenberg/skimming/input/$dir"
   done
 )</code></pre>
+
+## Specimen Data
+Received sample sheets from partner institutes (in [Checklists_Naturalis](https://drive.google.com/drive/folders/1O-CqkrjJJw19K2u4X3Q6rb40WqJ8vLvv?usp=drive_link)) occasionally differ from how they are registered at BOLD. Because a number of scripts in the MGE pipeline (e.g. go_fetch) require properly formatted tsv files it is advised to download them directly from BOLD. The [output](data/output_example.sh) of run2split.sh can be used for the creation of plate folders and the retrieval of required Process IDs from BOLD. Cd to the directory where you want to create the plate folders, copy and execute the mkdir command. To generate a list of Process IDs to search on BOLD (on per line) use Sample_range. In case of the first plate (BGE00417) this will be: 
+<pre><code>echo BGLIB{1521..1615}-24 | tr " " "\n"</code></pre>
+Copy the Process IDs, log in to BOLD. On the main console go to "Record Search" and paste the ProcessIDs in the List of Identifiers tab ("Process IDs" and "include public records" should be selected). Press "Search Records". The record list should return 95 specimens. Click "select al" and "Downloads -> Data Spreadsheets". Select all checkboxes under "Specimen Data". Unfortunately, there's no option to download both xlsx and tsv files. Downstream processing requires tsv files, but select "Multi-Page" (xlsx) if a spreadsheet is desired. The latter can easily be converted:
+<pre><code>xlsxbold2tsv_multiple.py BGE00417.xlsx </code></pre>
