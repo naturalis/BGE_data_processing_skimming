@@ -28,7 +28,7 @@ Backup the MultiQC report (html/zip) to [Google Drive](https://drive.google.com/
 ## Data issues (non-BGE, non-sequential, missing negative controls)
 This workflow expects the input data are BGE plates, consisting of 95 samples in sequential order and a negative control (containing the platenumber).
 Early on in the project it was decided to use BOLD IDs as sample names, instead of a code that reflected platenumber and well position. [BGE_range_extract.sh](scripts/BGE_range_extract.sh) 
-extracts the platenumber from the name of negative control (which is expected to be the 96th sample, corresponding to well H12) and assumes that the 95 samples that came before all belong
+uses the platenumber from the name of negative control (which is expected to be the 96th sample, corresponding to well H12) and assumes that the 95 samples that came before all belong
 to the same plate. Obviously this fails if the plate isn't full or the negative control is missing, named differently (ie. not -NC-) or isn't the 96th sample (ie. not H12).
 If sample names aren't sequential it quickly becomes laborious/impossible to use brace expansion to define [sample ranges](#sample-range).
 
