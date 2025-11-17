@@ -30,7 +30,7 @@ This workflow expects the input data are BGE plates, consisting of 95 samples in
 Early on in the project it was decided to use BOLD IDs as sample names, instead of a code that reflected platenumber and well position. [BGE_range_extract.sh](scripts/BGE_range_extract.sh) 
 extracts the platenumber from the name of negative control (which is expected to be the 96th sample, corresponding to well H12) and assumes that the 95 samples that came before all belong
 to the same plate. Obviously this fails if the plate isn't full or the negative control is missing, named differently (ie. not -NC-) or isn't the 96th sample (ie. not H12).
-If sample names aren't sequential it quickly becomes laborious/impossible to use brace expansion to define [sample ranges](#_sample_range).
+If sample names aren't sequential it quickly becomes laborious/impossible to use brace expansion to define [sample ranges](#sample-range).
 
 ## Sample range
 Download the [SampleForm](data/YB-4209_SampleForm.csv) (Ready-made-libraries), for submitting the plates to the sequence centre, as *.csv from [Google Drive](https://drive.google.com/drive/folders/1lxCPhEpvqq0meHPkXx-FaAgUgPk03dtY?usp=drive_link). Use [BGE_range_extract.sh](scripts/BGE_range_extract.sh) to split the data per plate (which facilitates traceability and uploading/retrieving data from S3 storage).
