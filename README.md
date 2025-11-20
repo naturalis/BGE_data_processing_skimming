@@ -26,10 +26,11 @@ If the checksums are identical only four files (.html .zip .md and .csv) will sh
 Backup the MultiQC report (html/zip) to [Google Drive](https://drive.google.com/drive/u/0/folders/17MvTBKfd92oqNXTxKr-5WwJUwwDGFyPE)  
 
 ## Reminder to UPDATE this repository
-generate_run2spit.sh sampleform.csv (rename output to include number, e.g. run2split_019.sh)  
-<pre><code>run2split_019.sh [-execute]</code></pre>
+<pre><code>generate_run2spit.sh sampleform.csv
+  # rename output to include number, e.g. run2split_019.sh
+run2split_019.sh [-execute]</code></pre>
 This will solve all issues mentioned below for ranges not being sequential or missing controls  
-(the brace extension expression is no longer needed, though brace3.sh does work)  
+The brace extension expression is no longer needed, though brace3.sh does create them:  
 <pre><code>brace3.sh "CUMNB151-14 CUMNB152-14 CUMNB153-14 CUMNB155-14 CUMNB157-14 CUMNB158-14 CUMNB159-14"</code></pre>
 
 ## Data issues (non-BGE, non-sequential, missing negative controls)
