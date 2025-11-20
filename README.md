@@ -25,6 +25,13 @@ If the checksums are identical only four files (.html .zip .md and .csv) will sh
 ## MultiQC
 Backup the MultiQC report (html/zip) to [Google Drive](https://drive.google.com/drive/u/0/folders/17MvTBKfd92oqNXTxKr-5WwJUwwDGFyPE)  
 
+## Reminder to UPDATE this repository
+generate_run2spit.sh sampleform.csv (rename output to include number, e.g. run2split_019.sh)  
+<pre><code>run2split_019.sh [-execute]</code></pre>
+This will solve all issues mentioned below for ranges not being sequential or missing controls  
+(the brace extension expression is no longer needed, though brace3.sh does work)  
+<pre><code>brace3.sh "CUMNB151-14 CUMNB152-14 CUMNB153-14 CUMNB155-14 CUMNB157-14 CUMNB158-14 CUMNB159-14"</code></pre>
+
 ## Data issues (non-BGE, non-sequential, missing negative controls)
 This workflow expects the input data are BGE plates, consisting of 95 samples in sequential order and a negative control (containing the platenumber).
 Early on in the project it was decided to use BOLD IDs as sample names, instead of a string that reflected platenumber and well position. [BGE_range_extract.sh](scripts/BGE_range_extract.sh) 
