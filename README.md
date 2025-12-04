@@ -87,7 +87,7 @@ Copy the Process IDs, log in to BOLD. On the main console go to "Record Search" 
 <pre><code>xlsxbold2tsv_multiple.py BGE00417.xlsx </code></pre>
 This will create a tsv folder with a tsv file for each tab of the xlsx file. To get a quick impression of the higher taxonomy per plate:
 <pre><code># Phylum:
-awk -F"\t" '{print $2}' tsv/BGE*_Taxonomy.tsv | sort -n | egrep -v "Phylum" | uniq -c
+awk -F"\t" '{print $2}' tsv/*_Taxonomy.tsv | sort -n | egrep -v "Phylum" | uniq -c
 # Class
-awk -F"\t" '{print $3}' tsv/BGE*_Taxonomy.tsv | sort -n | egrep -v "Class" | uniq -c</code></pre>
+awk -F"\t" '{print $3}' tsv/*_Taxonomy.tsv | sort -n | egrep -v "Class" | uniq -c</code></pre>
 
