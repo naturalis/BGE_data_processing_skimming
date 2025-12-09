@@ -1,7 +1,7 @@
 # BGE genome skimming data processing
 This document describes the preparation steps for analysing genome skims for [BGE](https://biodiversitygenomics.eu/).
 Up to 16 plates (95 samples + 1 negative control per plate) can be sent in a batch (4 index pools) to [SciLifeLab NGI](https://ngisweden.scilifelab.se/).
-After sequencing, these data need to be downloaded, checksummed, and split per plate before analyses commence.
+After sequencing, these data need to be downloaded, checksummed, and split by plate before analyses commence.
 
 ## DDS data download
 To download data from DDS you need an account and have the [DDS client](https://scilifelabdatacentre.github.io/dds_cli/installation/) installed on your system. You will get an email notification when new data
@@ -25,6 +25,18 @@ If the checksums are identical only four files (.html .zip .md and .csv) will sh
 ## MultiQC
 Backup the MultiQC report (html/zip) to [Google Drive](https://drive.google.com/drive/u/0/folders/17MvTBKfd92oqNXTxKr-5WwJUwwDGFyPE)  
 
+## Split by plate
+After sequencing, all fastq files will end up in a single output folder, while both BGE and lab workflows are plate-oriented. 
+There are some advantages to splitting the data per plate, like: efficiency (data can processed in parallel),
+robustness (errors don't affect other plates), transfer speed (faster to and from S3 shared storage) and traceability (detection of plate swaps).
+
+## Data issues (non-BGE, non-sequential, missing negative controls)
+This workflow used to expect the input data are BGE plates, consisting of 95 samples in sequential order and a negative control (containing the platenumber).
+Early on in the project it was decided to use BOLD IDs as sample names, instead of a string that reflected platenumber and well position. [BGE_range_extract.sh](scripts/BGE_range_extract.sh) 
+uses the platenumber from the name of negative control (which is expected to be the 96th sample, corresponding to well H12) and assumes that the 95 samples that came before all belong
+to the same plate. Obviously this fails if the plate isn't full or the negative control is missing, named differently (ie. not -NC-) or isn't the 96th sample (ie. not H12).
+If sample names aren't sequential it quickly becomes laborious/impossible to use brace expansion to define [sample ranges](#sample-range).
+
 ## Reminder to UPDATE this repository
 <pre><code>generate_run2spit.sh sampleform.csv
   # rename output to include number, e.g. run2split_019.sh
@@ -33,15 +45,8 @@ This will solve all issues mentioned below for ranges not being sequential or mi
 The brace extension expression is no longer needed, though brace3.sh does create them:  
 <pre><code>brace3.sh "CUMNB151-14 CUMNB152-14 CUMNB153-14 CUMNB155-14 CUMNB157-14 CUMNB158-14 CUMNB159-14"</code></pre>
 
-## Data issues (non-BGE, non-sequential, missing negative controls)
-This workflow expects the input data are BGE plates, consisting of 95 samples in sequential order and a negative control (containing the platenumber).
-Early on in the project it was decided to use BOLD IDs as sample names, instead of a string that reflected platenumber and well position. [BGE_range_extract.sh](scripts/BGE_range_extract.sh) 
-uses the platenumber from the name of negative control (which is expected to be the 96th sample, corresponding to well H12) and assumes that the 95 samples that came before all belong
-to the same plate. Obviously this fails if the plate isn't full or the negative control is missing, named differently (ie. not -NC-) or isn't the 96th sample (ie. not H12).
-If sample names aren't sequential it quickly becomes laborious/impossible to use brace expansion to define [sample ranges](#sample-range).
-
 ## Sample range
-Download the [SampleForm](data/YB-4209_SampleForm.csv) (Ready-made-libraries), for submitting the plates to the sequence centre, as *.csv from [Google Drive](https://drive.google.com/drive/folders/1lxCPhEpvqq0meHPkXx-FaAgUgPk03dtY?usp=drive_link). Use [BGE_range_extract.sh](scripts/BGE_range_extract.sh) to split the data per plate (which facilitates traceability and uploading/retrieving data from S3 storage).
+Download the [SampleForm](data/YB-4209_SampleForm.csv) (Ready-made-libraries), for submitting the plates to the sequence centre, as *.csv from [Google Drive](https://drive.google.com/drive/folders/1lxCPhEpvqq0meHPkXx-FaAgUgPk03dtY?usp=drive_link). Use [BGE_range_extract.sh](scripts/BGE_range_extract.sh) to split the data by plate (which facilitates traceability and uploading/retrieving data from S3 storage).
 <pre><code>./scripts/BGE_range_extract.sh data/YB-4209_SampleForm.csv</code></pre>
 The image below left shows the output for this example. Discrepancies in naming convention are not uncommon (e.g. plate 501) and the conversion of process IDs to brace expansion expressions may require some attention (e.g. plate 501, 502). Therefore it may be best to create these expressions for [run2split.sh](scripts/run2split.sh) manually (image below right). Both filenames and the foldername of the negative control for 501 were corrected to prevent issues in the next steps. As a side note: plates never seem to be given in sorted order (keeping the provided order can aid troubleshooting, e.g. plate-swap detection). 
 |  <img src="images/range_extract_output.png" width="400"> |  <img src="images/run2split_input.png" width="600"> |
