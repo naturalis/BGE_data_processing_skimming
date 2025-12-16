@@ -44,6 +44,7 @@ run2split_019.sh [-execute]</code></pre>
 This will solve all issues mentioned below for ranges not being sequential or missing controls  
 The brace extension expression is no longer needed, though brace3.sh does create them:  
 <pre><code>brace3.sh "CUMNB151-14 CUMNB152-14 CUMNB153-14 CUMNB155-14 CUMNB157-14 CUMNB158-14 CUMNB159-14"</code></pre>
+Omit samples (when multiple translation tables would be required for the same plate) --> work out scripts/omit_samples.sh
 
 ## Sample range
 Download the [SampleForm](data/YB-4209_SampleForm.csv) (Ready-made-libraries), for submitting the plates to the sequence centre, as *.csv from [Google Drive](https://drive.google.com/drive/folders/1lxCPhEpvqq0meHPkXx-FaAgUgPk03dtY?usp=drive_link). Use [BGE_range_extract.sh](scripts/BGE_range_extract.sh) to split the data by plate (which facilitates traceability and uploading/retrieving data from S3 storage).
