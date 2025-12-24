@@ -17,7 +17,7 @@ Brace extension expressions can be generated using [brace.sh](/scripts/brace.sh)
 <pre><code>brace.sh "CUMNB151-14 CUMNB152-14 CUMNB153-14 CUMNB155-14 CUMNB157-14 CUMNB158-14 CUMNB159-14"</code></pre>
 
 ## Run2split.sh
-Modify [run2split.sh]../(scripts/run2split.sh) by replacing the "add entry" section with the obtained brace expansion expressions (image above right) and run it on the same directory where the [checksums](/README.md#md5-checksums) were calculated.
+Modify [run2split.sh](/scripts/run2split.sh) by replacing the "add entry" section with the obtained brace expansion expressions (image above right) and run it on the same directory where the [checksums](/README.md#md5-checksums) were calculated.
 <pre><code>./run2split.sh</code></pre>
 Six output blocks will be written to sdout. The first block (image below left) shows the number of samples and file size per plate. Each plate should have 95 samples and a negative control and the total file size per plate is generally between ~50 and ~100 Gb. In this example one sequence pool (the last four plates) had higher adapter peaks and was therefore excluded from this run.
 |  <img src="/images/run2split_output1.png" width="670"> |
