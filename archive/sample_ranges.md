@@ -3,7 +3,7 @@ This document describes the old method of creating brace expansion expressions t
 For plate-level analyses, the run directory gets split into BGE plate folders using these SampleIDs (which are
 part of the sequencing filenames).
 This method still works (and arguably is more concise than its successor) but fails when SampleIDs are no
-longer sequential, and/or when multiple institute codes are being used.
+longer sequential, and/or when multiple institute codes are being used per plate.
 
 ## Sample range
 Download the [SampleForm](/data/YB-4209_SampleForm.csv) (Ready-made-libraries), for submitting the plates to the sequence centre, as *.csv from [Google Drive](https://drive.google.com/drive/folders/1lxCPhEpvqq0meHPkXx-FaAgUgPk03dtY?usp=drive_link). Use [BGE_range_extract.sh](/scripts/BGE_range_extract.sh) to split the data by plate (which facilitates traceability and uploading/retrieving data from S3 storage).
