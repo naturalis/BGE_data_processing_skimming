@@ -31,41 +31,16 @@ There are some advantages to splitting the data per plate, like: efficiency (dat
 robustness (errors don't affect other plates), transfer speed (faster to and from S3 shared storage) and traceability (detection of plate swaps).
 
 ## Data issues (non-BGE, non-sequential, missing negative controls)
-This workflow used to expect the input data are BGE plates, consisting of 95 samples in sequential order and a negative control (containing the platenumber).
-Early on in the project it was decided to use BOLD IDs as sample names, instead of a string that reflected platenumber and well position. [BGE_range_extract.sh](scripts/BGE_range_extract.sh) 
-uses the platenumber from the name of negative control (which is expected to be the 96th sample, corresponding to well H12) and assumes that the 95 samples that came before all belong
-to the same plate. Obviously this fails if the plate isn't full or the negative control is missing, named differently (ie. not -NC-) or isn't the 96th sample (ie. not H12).
-If sample names aren't sequential it quickly becomes laborious/impossible to use brace expansion to define [sample ranges](#sample-range).
+Early on in the project it was decided to switch from samplenames that reflected platenumber and well position (used for labwork) to BOLD_process_IDs. Though this clarified the relation between the sample and BOLD, it obscured the relation between sample and plate. Expected for this workflow are BGE plates consisting of 95 samples in sequential order and a negative control (containing the platenumber) in the last well (H12). For the majority of plates this was the case and we could follow the [run2split method using brace expansion](archive/sample_ranges.md/#superseded-method-run2splitsh-using-brace-expansion). Until it didn't and we started receiving plates not having 95 samples, samplenames not being sequential (or with multiple institute codes), not having a negative control or having it in a different position (not H12) or with a different name (ie. not -NC-), etc. This made it much harder to keep using the brace expansion method to define [sample ranges](archive/sample_ranges.md#). A last issue needing attention is the presence of samples requiring different markers (COI,RBCL,ITS) or different translation tables (e.g. arthropods and chordates) in the same plate.
 
-## Reminder to UPDATE this repository
-<pre><code>generate_run2spit.sh sampleform.csv
-  # rename output to include number, e.g. run2split_019.sh
-run2split_019.sh [-execute]</code></pre>
-This will solve all issues mentioned below for ranges not being sequential or missing controls  
-The brace extension expression is no longer needed, though brace3.sh does create them:  
-<pre><code>brace3.sh "CUMNB151-14 CUMNB152-14 CUMNB153-14 CUMNB155-14 CUMNB157-14 CUMNB158-14 CUMNB159-14"</code></pre>
+## run2split
+Because of these [data issues](#data-issues-non-bge-non-sequential-missing-negative-controls) the last incarnation of run2split no longer relies on brace expansion, but gets its data directly from sampleform.csv (=form containing all sampleIDs for all plates in a run) instead. First use [generate_run2split.sh](scripts/generate_run2split.sh) to create a run2split.sh tailored to your run
+<pre><code>generate_run2split.sh sampleform.csv</code></pre>
+The output will be a file called run2split.sh (this file will differ for each run, so you might rename it to keep track). Execute run2split.sh from the same directory where the [checksums](#md5-checksums) are located. Without the -execute flag, commands will only be written to sdout (to inspect or save as log file). Check the output and when satisfied execute run2split.sh:
+<pre><code>run2split.sh -execute</code></pre>
+
+## multiple translation tables 
 Omit samples (when multiple translation tables would be required for the same plate) --> work out scripts/omit_samples.sh
-
-## Sample range
-Download the [SampleForm](data/YB-4209_SampleForm.csv) (Ready-made-libraries), for submitting the plates to the sequence centre, as *.csv from [Google Drive](https://drive.google.com/drive/folders/1lxCPhEpvqq0meHPkXx-FaAgUgPk03dtY?usp=drive_link). Use [BGE_range_extract.sh](scripts/BGE_range_extract.sh) to split the data by plate (which facilitates traceability and uploading/retrieving data from S3 storage).
-<pre><code>./scripts/BGE_range_extract.sh data/YB-4209_SampleForm.csv</code></pre>
-The image below left shows the output for this example. Discrepancies in naming convention are not uncommon (e.g. plate 501) and the conversion of process IDs to brace expansion expressions may require some attention (e.g. plate 501, 502). Therefore it may be best to create these expressions for [run2split.sh](scripts/run2split.sh) manually (image below right). Both filenames and the foldername of the negative control for 501 were corrected to prevent issues in the next steps. As a side note: plates never seem to be given in sorted order (keeping the provided order can aid troubleshooting, e.g. plate-swap detection). 
-|  <img src="images/range_extract_output.png" width="400"> |  <img src="images/run2split_input.png" width="600"> |
-|--------------------------------|--------------------------------|
-
-## Run2split.sh
-Modify [run2split.sh](scripts/run2split.sh) by replacing the "add entry" section with the obtained brace expansion expressions (image above right) and run it on the same directory where the [checksums](#md5-checksums) were calculated.
-<pre><code>./run2split.sh</code></pre>
-Six output blocks will be written to sdout. The first block (image below left) shows the number of samples and file size per plate. Each plate should have 95 samples and a negative control and the total file size per plate is generally between ~50 and ~100 Gb. In this example one sequence pool (the last four plates) had higher adapter peaks and was therefore excluded from this run.
-|  <img src="images/run2split_output1.png" width="670"> |
-|--------------------------------|
-
-The latter five output blocks write commands to stdout (allowing for a final check). Copy [the output](data/output_example.sh) and execute. These commands will:  
-2. Create BGE plate directories.  
-3. Select and move sequence data to the correct plate directories.  
-4. Move the negative controls to the correct plate directories.  
-5. Copy the checksums to each plate directory.  
-6. Move the plate directories to the desired output location.
 
 ## Backup to NDOR S3
 _Note: 
